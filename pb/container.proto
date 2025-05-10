@@ -1,0 +1,18 @@
+syntax="proto2";
+option cc_generic_services = true;
+
+package container;
+
+message CreateContainerRequest {
+    required string image_name_tag = 1;
+}
+
+message CreateContainerResponse {
+    required bool success = 1;
+    required double duration = 2;
+    required string path = 3;
+}
+
+service CreateContainerService {
+    rpc CreateContainer(CreateContainerRequest) returns (CreateContainerResponse);
+}

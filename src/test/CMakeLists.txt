@@ -1,0 +1,2 @@
+add_executable(image_ops_test image_ops_test.c)
+target_link_libraries(image_ops_test PRIVATE third_party_isulad)

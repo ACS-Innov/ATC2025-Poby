@@ -1,0 +1,41 @@
+{
+    "version": 2,
+    "configurePresets": [
+        {
+            "name": "debug",
+            "displayName": "Debug build",
+            "description": "Debug build",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "/usr/bin/cc",
+                "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/install/",
+                "CMAKE_TOOLCHAIN_FILE": {
+                    "value": "/opt/vcpkg/scripts/buildsystems/vcpkg.cmake",
+                    "type": "FILEPATH"
+                },
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "yes"
+            }
+        },
+        {
+            "name": "release",
+            "displayName": "Release build",
+            "description": "Release build",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/install/",
+                "CMAKE_C_COMPILER": "/usr/bin/cc",
+                "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_TOOLCHAIN_FILE": {
+                    "value": "/opt/vcpkg/scripts/buildsystems/vcpkg.cmake",
+                    "type": "FILEPATH"
+                },
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "yes" 
+            }
+        }
+    ]
+}

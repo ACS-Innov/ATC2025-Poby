@@ -1,0 +1,29 @@
+syntax="proto2";
+option cc_generic_services = true;
+
+package content;
+
+message GetLayerRequest {
+    required string layer = 1;
+    required int32 index = 2;
+    required string image_name_tag = 3;
+    required int32 total_segments = 4;
+}
+
+message GetLayerResponse {
+    required string layer = 1;
+    required int32 index = 2;
+    required bool iscompressed = 3;
+    required uint32 segment_size = 4;
+    required string image_name_tag = 5;
+    required int32 total_segments = 6;
+}
+
+message TcpGetLayerResponse {
+    required string layer = 1;
+    required int32 index = 2;
+    required bool iscompressed = 3;
+    required bytes segment = 4;
+    required string image_name_tag = 5;
+    required int32 total_segments = 6; 
+}

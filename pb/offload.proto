@@ -1,0 +1,23 @@
+syntax="proto2";
+option cc_generic_services = true;
+
+package offload;
+
+message OffloadRequest {
+    required string image_name_tag = 1;
+    repeated LayerElement layers = 2;
+}
+message LayerElement{
+    required string layer = 1;
+}
+message OffloadResponse {
+    required string image_name_tag = 1;
+    required bool success = 2;
+}
+
+message DecompressConnectionRequest{
+    required bool connection = 1;
+}
+message DecompressConnectionResponse{
+    required bool connection = 1;
+}

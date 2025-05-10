@@ -1,0 +1,37 @@
+syntax="proto2";
+option cc_generic_services = true;
+
+package compress;
+
+message DecompressFinishRequest {
+    required string layer_name = 1;
+    required string image_name_tag = 2;
+    required int32 segment_size = 3;
+    required int32 segment_idx = 4;
+    required int32 total_segments = 5;
+    required int32 bufpair_id = 6;
+    required bool data_inline = 7;
+}
+
+message DecompressFinishResponse {
+    required bool success = 1;
+    required string layer_name = 2;
+    required int32 segment_idx = 3;
+    required bool data_inline = 4;
+    required int32 bufpair_id = 5;
+}
+
+message MmapInfoRequest {
+    required int32 mmap_num = 1;
+}
+
+message MmapInfoResponse {
+    repeated MmapInfoElement mmaps = 1;
+}
+
+message MmapInfoElement {
+    required uint64 addr = 1;
+    required uint64 len = 2;
+    required bytes export_desc = 3;
+}
+
