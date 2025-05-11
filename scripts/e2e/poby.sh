@@ -49,6 +49,22 @@ echo "end pulling images"
 
 # extract time from logs 
 
+image-short-name=(
+    SN
+    MS
+    HR
+    PY
+    JS
+    GO
+    PP
+    PS
+    LP
+    CL
+    MT
+    ML
+)
+
+
 echo "Poby E2E test result:"
 folder=log/
 num=0
@@ -64,7 +80,7 @@ for image in ${images[@]}; do
         time_diff=$(printf "%.3f" $(echo "scale=3; $end_seconds - $start_seconds" | bc))
 
 
-        echo "${image}: ${time_diff}s" 
+        echo "${image} (${image-short-name[$num]}): ${time_diff}s" 
     fi
     ((num+=1))
 done
