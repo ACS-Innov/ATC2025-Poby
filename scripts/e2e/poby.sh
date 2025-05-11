@@ -32,24 +32,7 @@ matmul
 image-processing
 )
 
-num=0
-
-echo "start pulling images"
-
-for image in ${images[@]}; do
-     ./build/src/host/client/client_cli -command_peer_ip ${POBY_CLI_IP} -command_peer_port ${POBY_CLI_PORT} -image_name ${image}  --image_tag 0 \
-        > log/e2e/cli_${num}.log 2>&1
-    
-    sleep 5s
-    ((num+=1))
-done
-
-echo "end pulling images"
-./scripts/remote_kill.sh 
-
-# extract time from logs 
-
-image-short-name=(
+image_short_name=(
 SN
 MS
 HR
@@ -63,6 +46,26 @@ CL
 MT
 ML
 )
+
+num=0
+
+echo "start pulling images"
+
+for image in ${images[@]}; do
+    echo "start pulling ${image} (${image_short_name[$num]})"
+     ./build/src/host/client/client_cli -command_peer_ip ${POBY_CLI_IP} -command_peer_port ${POBY_CLI_PORT} -image_name ${image}  --image_tag 0 \
+        > log/e2e/cli_${num}.log 2>&1
+    echo "pulling ${image} (${image_short_name[$num]}) success" 
+    sleep 1s
+    ((num+=1))
+done
+
+echo "end pulling images"
+./scripts/remote_kill.sh 
+
+# extract time from logs 
+
+
 
 
 echo "Poby E2E test result:"
@@ -80,7 +83,7 @@ for image in ${images[@]}; do
         time_diff=$(printf "%.3f" $(echo "scale=3; $end_seconds - $start_seconds" | bc))
 
 
-        echo "${image} (${image-short-name[$num]}): ${time_diff}s" 
+        echo "${image} (${image_short_name[$num]}): ${time_diff}s" 
     fi
     ((num+=1))
 done
