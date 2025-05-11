@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # change those variables
-POBY_PATH=/home/poby/code/cpp/poby
+POBY_PATH=/home/atc25-ae/ATC2025-Poby
 SUDO_PASSWORD=poby
 REGISTRY_MIRROR=10.16.0.183:5000
 

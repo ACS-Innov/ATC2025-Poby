@@ -5,7 +5,7 @@ source ./scripts/set_env.sh
 mkdir -p log/e2e
 
 # start poby
-source ./scripts/e2e/start_poby.sh 
+./scripts/e2e/start_poby.sh 
 
 # remove tmp result files
 echo ${SUDO_PASSWORD} | sudo -S rm -rf untar/design/*
@@ -34,6 +34,8 @@ image-processing
 
 num=0
 
+echo "start pulling images"
+
 for image in ${images[@]}; do
      ./build/src/host/client/client_cli -command_peer_ip ${POBY_CLI_IP} -command_peer_port ${POBY_CLI_PORT} -image_name ${image}  --image_tag 0 \
         > log/e2e/cli_${num}.log 2>&1
@@ -42,6 +44,7 @@ for image in ${images[@]}; do
     ((num+=1))
 done
 
+echo "end pulling images"
 ./scripts/remote_kill.sh 
 
 # extract time from logs 

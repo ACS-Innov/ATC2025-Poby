@@ -81,7 +81,6 @@ sudo -E vcpkg install libarchive
 cmake --preset release # could change to "cmake --preset debug" for debug
 cmake --build build 
 # the first compile of isulad may cause error. You can rerun commands to solve it.
-cmake --preset release
 cmake --build build 
 ```
 

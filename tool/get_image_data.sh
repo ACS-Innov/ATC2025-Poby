@@ -63,12 +63,12 @@ mv "$download_dir"/deathstarbench_social-network-microservices_latest        "$d
 mv "$download_dir"/yg397_media-microservices_latest                      "$download_dir"/movie-rent-service:latest
 mv "$download_dir"/deathstarbench_hotel-reservation_latest              "$download_dir"/hotel-reservation:latest
 mv "$download_dir"/openwhisk_python3action_latest                       "$download_dir"/python3:latest
-mv "$download_dir"/openwhisk_action-nodejs-v10_latest                  "$download_dir"/nodejs0:latest
+mv "$download_dir"/openwhisk_action-nodejs-v10_latest                  "$download_dir"/nodejs:latest
 mv "$download_dir"/openwhisk_actionloop-golang-v1.11_latest      "$download_dir"/golang:latest
 mv "$download_dir"/openwhisk_action-php-v8.2_latest                     "$download_dir"/php:latest
 mv "$download_dir"/andersonandrei_python3action-pyaes_latest            "$download_dir"/pyaes:latest
 mv "$download_dir"/andersonandrei_python3action-linpack_latest          "$download_dir"/linpack:latest
 mv "$download_dir"/andersonandrei_python3action-chameleon_latest       "$download_dir"/chameleon:latest
 mv "$download_dir"/andersonandrei_python3action-matmul_latest         "$download_dir"/matmul:latest
-mv "$download_dir"/andersonandrei_python3action-image_processing_latest "$download_dir"/image_processing:latest
+mv "$download_dir"/andersonandrei_python3action-image_processing_latest "$download_dir"/image-processing:latest
 
