@@ -119,7 +119,7 @@ In order to run Poby, we need to split and compress the image files into image b
 The preparation for image blocks can be broken down into three steps:
 - Get the original image files
 - Decompress the original image files
-- Split and ompress those decompressed image files into image blocks that can be parsed by Poby
+- Split and compress those decompressed image files into image blocks that can be parsed by Poby
 
 
 ``` shell
