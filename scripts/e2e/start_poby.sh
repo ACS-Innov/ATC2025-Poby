@@ -3,13 +3,15 @@
 
 source ./scripts/set_env.sh
 
+minute=${1}
+
 mem_num=3
 rdma_mem=34603008
 doca_mem=34603008
 
 mkdir -p log/e2e
 
-ssh content_server " cd ${POBY_PATH} && mkdir -p log/e2e && \
+ssh content_server " cd ${POBY_PATH} && mkdir -p log/e2e/poby && \
     echo ${SUDO_PASSWORD} | sudo -S ./build/src/host/server/content_server \
     -content_server_listen_ip ${CONTENT_SERVER_IP} \
     -content_server_listen_port ${CONTENT_SERVER_PORT} \
@@ -17,12 +19,12 @@ ssh content_server " cd ${POBY_PATH} && mkdir -p log/e2e && \
     -content_server_ib_dev_name ${CONTENT_SERVER_IB_DEV_NAME} \
     -content_server_rdma_mem ${rdma_mem} \
     -content_server_rdma_mem_num ${mem_num}  \
-        > log/e2e/server.log 2>&1 & "
+        > log/e2e/poby/${minute}_server.log 2>&1 & "
 
 echo "start content server"
 sleep 4s 
 
-ssh dpu "cd ${POBY_PATH} && mkdir -p log/e2e \
+ssh dpu "cd ${POBY_PATH} && mkdir -p log/e2e/poby \
         && echo ${SUDO_PASSWORD} | sudo -S taskset -c 1-7  ./build/src/dpu/dpu_main \
         -decompress_client_peer_ip ${DECOMPRESS_SERVER_IP} \
         -decompress_client_peer_port ${DECOMPRESS_SERVER_PORT} \
@@ -42,7 +44,7 @@ ssh dpu "cd ${POBY_PATH} && mkdir -p log/e2e \
         -offload_server_rdma_mem_num ${mem_num} \
         -offload_server_rdma_mem 4096 \
         -blob_size ${doca_mem} \
-            > log/e2e/dpu.log 2>&1 & "
+            > log/e2e/poby/${minute}_dpu.log 2>&1 & "
 
 echo "start dpu server"
 sleep 4s
@@ -63,7 +65,7 @@ echo ${SUDO_PASSWORD} | sudo -S ./build/src/host/client/client_main \
     -decompress_server_doca_mem ${doca_mem} \
     -decompress_server_rdma_mem_num ${mem_num} \
     -decompress_server_rdma_mem 4096 \
-        >log/e2e/client.log  2>&1 &
+        >log/e2e/poby/${minute}_client.log  2>&1 &
 
 echo "start cpu server"
 sleep 4s

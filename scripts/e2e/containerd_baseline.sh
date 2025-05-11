@@ -29,6 +29,21 @@ ${REGISTRY_MIRROR}/andersonandrei/python3action-matmul:latest
 ${REGISTRY_MIRROR}/andersonandrei/python3action-image_processing:latest
 )
 
+image_short_name=(
+SN
+MS
+HR
+PY
+JS
+GO
+PP
+PS
+LP
+CL
+MT
+ML
+)
+
 for image in "${images[@]}"; do
     # Extract image name (remove the part between the last / and :)
     image_name=$(echo "$image" | awk -F'/' '{print $NF}' | awk -F':' '{print $1}')
@@ -45,7 +60,9 @@ for image in "${images[@]}"; do
     echo "poby" | sudo -S ctr images rm "$image" > /dev/null 2>&1
 done
 
-echo -e "\nAll images have been downloaded via containerd. The following are the download time statistics:"
+num=0
+
+echo -e "\nAll images have been downloaded via containerd. The following are the time statistics (log_id: ${minute}):"
 for image in "${images[@]}"; do
     # Extract image name
     image_name=$(echo "$image" | awk -F'/' '{print $NF}' | awk -F':' '{print $1}')
@@ -56,12 +73,13 @@ for image in "${images[@]}"; do
         # Extract download time
         time=$(grep "done: " "$log_file" | grep -oE '([0-9.]+[smh]\.?){1,3}')
         if [ -n "$time" ]; then
-            echo "$image_name: $time"
+            echo "$image_name (${image_short_name[$num]}): $time"
         else
             echo "$image_name: Download time not found"
         fi
     else
         echo "$image_name: Log file does not exist"
     fi
+    ((num+=1))
 done
 

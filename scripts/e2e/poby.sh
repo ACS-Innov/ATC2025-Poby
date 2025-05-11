@@ -2,17 +2,20 @@
 
 source ./scripts/set_env.sh
 
-mkdir -p log/e2e
+# Current minute
+minute=$(date +"%M")
+
+mkdir -p log/e2e/poby
 
 # start poby
-./scripts/e2e/start_poby.sh 
+./scripts/e2e/start_poby.sh ${minute}
 
 # remove tmp result files
 echo ${SUDO_PASSWORD} | sudo -S rm -rf untar/design/*
 
 
 # warm up
-./build/src/host/client/client_cli -command_peer_ip ${POBY_CLI_IP} -command_peer_port ${POBY_CLI_PORT} -image_name nodejs  --image_tag 0 > log/e2e/cli_warmup.log 2>&1
+./build/src/host/client/client_cli -command_peer_ip ${POBY_CLI_IP} -command_peer_port ${POBY_CLI_PORT} -image_name nodejs  --image_tag 0 > log/e2e/poby/${minute}_cli_warmup.log 2>&1
 # remove tmp result files
 echo ${SUDO_PASSWORD} | sudo -S rm -rf untar/design/*
 
@@ -54,7 +57,7 @@ echo "start pulling images"
 for image in ${images[@]}; do
     echo "start pulling ${image} (${image_short_name[$num]})"
      ./build/src/host/client/client_cli -command_peer_ip ${POBY_CLI_IP} -command_peer_port ${POBY_CLI_PORT} -image_name ${image}  --image_tag 0 \
-        > log/e2e/cli_${num}.log 2>&1
+        > log/e2e/poby/${minute}_cli_${num}.log 2>&1
     echo "pulling ${image} (${image_short_name[$num]}) success" 
     sleep 1s
     ((num+=1))
@@ -67,12 +70,11 @@ echo "end pulling images"
 
 
 
-
-echo "Poby E2E test result:"
+echo -e "\nAll images have been downloaded via Poby. The following are the time statistics (log_id: ${minute}):"
 folder=log/
 num=0
 for image in ${images[@]}; do
-    log_file="log/e2e/cli_${num}.log"
+    log_file="log/e2e/poby/${minute}_cli_${num}.log"
     if [[ -f $log_file ]] ; then 
         start_time=$(grep "start pulling" "$log_file" | sed -n 's/.*\[\([0-9:.]*\)\].*/\1/p')
         end_time=$(grep "the provision of container" "$log_file" | sed -n 's/.*\[\([0-9:.]*\)\].*/\1/p')
