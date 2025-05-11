@@ -12,7 +12,7 @@ echo ${SUDO_PASSWORD} | sudo -S rm -rf untar/design/*
 
 
 # warm up
-./build/src/host/client/client_cli -command_peer_ip ${POBY_CLI_IP} -command_peer_port ${POBY_CLI_PORT} -image_name nodejs  --image_tag 0 log/e2e/cli_warmup.log 2>&1
+./build/src/host/client/client_cli -command_peer_ip ${POBY_CLI_IP} -command_peer_port ${POBY_CLI_PORT} -image_name nodejs  --image_tag 0 > log/e2e/cli_warmup.log 2>&1
 # remove tmp result files
 echo ${SUDO_PASSWORD} | sudo -S rm -rf untar/design/*
 
