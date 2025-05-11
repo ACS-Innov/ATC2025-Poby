@@ -50,18 +50,18 @@ echo "end pulling images"
 # extract time from logs 
 
 image-short-name=(
-    SN
-    MS
-    HR
-    PY
-    JS
-    GO
-    PP
-    PS
-    LP
-    CL
-    MT
-    ML
+SN
+MS
+HR
+PY
+JS
+GO
+PP
+PS
+LP
+CL
+MT
+ML
 )
 
 
